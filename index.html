@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SendivTech – Premium Tech Freelancing</title>
+<link rel="icon" type="image/png" href="image/video/180.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css" />
+<style>
+
+</style>
+</head>
+<body>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<div class="wa-float">
+  <div class="wa-tooltip">Chat on WhatsApp</div>
+  <a href="https://wa.me/918122083267" target="_blank" rel="noopener" class="wa-btn" title="WhatsApp: +91 81220 83267">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-fb" id="navLogoWrap"><img src="image/video/logo.png"></div>
+      <div class="nav-logo-text"><span class="s">Sendiv</span><span class="t">Tech</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#" onclick="openAdm()" class="nav-cta">Admin</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMob()">☰</button>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <ul>
+    <li><a href="#services" onclick="closeMob()">Services</a></li>
+    <li><a href="#projects" onclick="closeMob()">Projects</a></li>
+    <li><a href="#about" onclick="closeMob()">About</a></li>
+    <li><a href="#contact" onclick="closeMob()">Contact</a></li>
+    <li><a href="#reviews" onclick="closeMob()">Reviews</a></li>
+    <li><a href="#" onclick="openAdm();closeMob()">Admin</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-video-wrap">
+    <video id="heroBg" autoplay muted loop playsinline preload="auto">
+      <source id="heroVideoSrc" src="image/video/logovi.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-c">
+    <div class="fade-up">
+      <div class="hero-badge"><span class="pulse"></span>Available for New Projects</div>
+    </div>
+    <h1 class="hero-h1 fade-up d1">We Build Digital<br>Products That<br><span class="hl-gold">Actually Perform</span></h1>
+    <p class="hero-p fade-up d2">Premium web design, video production, and creative services for brands that refuse to be ordinary. Clean systems. Sharp visuals. Measurable results.</p>
+    <div class="hero-btns fade-up d3">
+      <a href="#projects" class="btn-p">View Our Work →</a>
+      <a href="#contact" class="btn-o">Start a Project</a>
+    </div>
+    <div class="hero-proof fade-up d4">
+      <div><div class="proof-num" id="hp-proj">0</div><div class="proof-label">Projects Delivered</div></div>
+      <div class="proof-div"></div>
+      <div><div class="proof-num">3+</div><div class="proof-label">Core Services</div></div>
+      <div class="proof-div"></div>
+      <div><div class="proof-num"><span class="g" id="hp-rat">4.9</span>★</div><div class="proof-label">Average Rating</div></div>
+      <div class="proof-div"></div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div class="av-stack">
+          <div class="av" style="background:#1E40AF;color:#93C5FD">AK</div>
+          <div class="av" style="background:#065F46;color:#6EE7B7">SM</div>
+          <div class="av" style="background:#7C3AED;color:#C4B5FD">LR</div>
+          <div class="av" style="background:#9D174D;color:#F9A8D4">DT</div>
+        </div>
+        <span class="av-label"><strong>50+</strong> happy clients</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="sec-head fade-up">
+      <span class="eyebrow">What We Do</span>
+      <h2 class="sec-title">Services Built for<br>Modern Brands</h2>
+      <p class="sec-sub">From concept to launch — web design, video production, and creative direction.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card fade-up d1"><div class="srv-ic ic-w">🌐</div><h3 class="srv-title">Web Design & Development</h3><p class="srv-desc">Pixel-perfect websites built with modern frameworks. Fast, responsive, SEO-optimized.</p><div class="srv-tags"><span class="stag tb">React</span><span class="stag tb">Next.js</span><span class="stag tb">UI/UX</span></div></div>
+      <div class="srv-card fade-up d2"><div class="srv-ic ic-v">🎬</div><h3 class="srv-title">Video Editing & Motion</h3><p class="srv-desc">Professional video production — social content to brand films. Storytelling that converts.</p><div class="srv-tags"><span class="stag tg">After Effects</span><span class="stag tg">Premiere Pro</span></div></div>
+      <div class="srv-card fade-up d3"><div class="srv-ic ic-d">🎨</div><h3 class="srv-title">Graphic & Poster Design</h3><p class="srv-desc">Bold, memorable visuals — marketing assets, event posters, and brand identity.</p><div class="srv-tags"><span class="stag tgr">Figma</span><span class="stag tgr">Illustrator</span><span class="stag tgr">Branding</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="sec-head fade-up"><span class="eyebrow">Our Work</span><h2 class="sec-title">Selected Projects</h2><p class="sec-sub">Browse completed client work and live demos — built with craft and intent.</p></div>
+    <div class="proj-tabs fade-up">
+      <button class="ptab tab-all active" onclick="filterProj('all',this)">All <span class="pcnt" id="cnt-all">0</span></button>
+      <button class="ptab tab-demo" onclick="filterProj('demo',this)">🟡 Demo <span class="pcnt" id="cnt-demo">0</span></button>
+      <button class="ptab tab-done" onclick="filterProj('done',this)">✅ Completed <span class="pcnt" id="cnt-done">0</span></button>
+    </div>
+    <div class="proj-grid" id="projGrid"></div>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-card">
+          <div class="about-mesh"></div>
+          <div class="about-logo-fb" id="aboutLogoWrap"><img src="image/video/logo.png"></div>
+          <div class="about-wordmark"><span class="w1">Sendiv</span><span class="w2">Tech</span></div>
+          <div class="about-chips"><span class="achip cb">Web Design</span><span class="achip ca">Video Editing</span><span class="achip cg">Graphic Design</span></div>
+        </div>
+      </div>
+      <div class="fade-up d2">
+        <span class="eyebrow">Who We Are</span>
+        <h2 class="sec-title">A Studio Built on<br>Craft & Precision</h2>
+        <p class="about-text">SendivTech is a premium tech freelancing studio specializing in web design, video production, and creative direction. We partner with startups, agencies, and growing brands who demand excellence.</p>
+        <p class="about-text" style="color:var(--ts);font-size:.9rem;line-height:1.8">Every project begins with strategy — we don't just make things look good, we make them work. Transparent process, reliable timelines, measurable output.</p>
+        <div class="about-vals">
+          <div class="val"><span class="val-ico">⚡</span><span class="val-text">Fast Delivery</span></div>
+          <div class="val"><span class="val-ico">🎯</span><span class="val-text">Pixel Perfect</span></div>
+          <div class="val"><span class="val-ico">🔒</span><span class="val-text">Reliable</span></div>
+          <div class="val"><span class="val-ico">🤝</span><span class="val-text">Client First</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="cinfo fade-up">
+        <span class="eyebrow">Get In Touch</span>
+        <h2 class="sec-title">Ready to Start<br>Your Project?</h2>
+        <p>Have an idea or want to explore possibilities? Drop a message — or reach us instantly on WhatsApp.</p>
+        <div class="cinfo-items">
+          <div class="cinfo-row"><div class="cinfo-ic">👤</div><div><div class="cinfo-lbl">Name</div><div class="cinfo-val">SendivTech</div></div></div>
+          <div class="cinfo-row">
+            <div class="cinfo-ic wa-ic">📱</div>
+            <div><div class="cinfo-lbl">Phone</div>
+              <div class="cinfo-val"><a href="tel:+918122083267" target="_blank" class="wa-link">+91 81220 83267</a></div>
+            </div>
+          </div>
+          <div class="cinfo-row"><div class="cinfo-ic">📧</div><div><div class="cinfo-lbl">Email</div><div class="cinfo-val"><a href="mailto:info@sendivtech.in">info@sendivtech.in</a></div></div></div>
+          <div class="cinfo-row"><div class="cinfo-ic" style="font-size:.8rem;font-weight:700">in</div><div><div class="cinfo-lbl">LinkedIn</div><div class="cinfo-val"><a href="https://www.linkedin.com/in/sendiv-tech-03267m" target="_blank">sendiv-tech-03267m</a></div></div></div>
+          <div class="cinfo-row"><div class="cinfo-ic">⏱</div><div><div class="cinfo-lbl">Response Time</div><div class="cinfo-val">Within 24 hours</div></div></div>
+        </div>
+        <div style="margin-top:1.5rem;display:flex;gap:.75rem;flex-wrap:wrap">
+          <button class="btn-leave-review" onclick="openReviewPage()">⭐ Leave a Review</button>
+        </div>
+      </div>
+      <div class="cform fade-up d2">
+        <div class="fg-row">
+          <div class="fg"><label>First Name</label><input id="c-fn" type="text" placeholder="John"/></div>
+          <div class="fg"><label>Last Name</label><input id="c-ln" type="text" placeholder="Doe"/></div>
+        </div>
+        <div class="fg"><label>Email Address</label><input id="c-em" type="email" placeholder="john@example.com"/></div>
+        <div class="fg"><label>Service Needed</label>
+          <select id="c-sv"><option value="">Select a service...</option><option>Web Design & Development</option><option>Video Editing & Motion</option><option>Graphic & Poster Design</option><option>Multiple Services</option><option>Consultation</option></select>
+        </div>
+        <div class="fg"><label>Message</label><textarea id="c-msg" rows="4" placeholder="Tell us about your project..."></textarea></div>
+        <button class="cform-btn" onclick="sendContact()">Send Message →</button>
+        <div class="cform-ok" id="c-ok">✓ Sent! We'll get back to you within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     REVIEWS SECTION — WHITE BACKGROUND
+     Customers CAN see approved reviews here
+     + "View All Reviews" opens full review page
+═══════════════════════════════════════════ -->
+<section id="reviews" style="background:#FFFFFF">
+  <div class="container">
+    <div class="reviews-head-row fade-up">
+      <div>
+        <span class="reviews-eyebrow">Client Reviews</span>
+        <h2 class="reviews-title">What Our Clients Say</h2>
+        <p class="reviews-sub">Real feedback from real clients. We let the work — and the people who hired us — speak for themselves.</p>
+      </div>
+      <div class="rating-block fade-up d1">
+        <div class="rating-big-num" id="sec-avg-rating">4.9</div>
+        <div class="rating-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="rating-count" id="sec-rev-count">Based on client reviews</div>
+      </div>
+    </div>
+
+    <!-- ACTION ROW: customers can see reviews AND leave one -->
+    <div class="reviews-cta-row fade-up">
+      <h3 id="rev-section-label">Recent Reviews</h3>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <button class="btn-view-reviews" onclick="openReviewPage()">📖 View All Reviews & Leave One</button>
+      </div>
+    </div>
+
+    <!-- PREVIEW: up to 3 approved reviews shown directly on homepage -->
+    <div class="preview-strip" id="revPreviewStrip">
+      <div class="rev-grid-white" id="revPreviewGrid">
+        <div class="rev-no-public"><div style="font-size:2rem;margin-bottom:.5rem">💬</div><h3>No reviews yet</h3><p>Be the first to share your experience!</p></div>
+      </div>
+      <div class="preview-fade"></div>
+    </div>
+
+    <!-- Subtle CTA below -->
+    <div style="text-align:center;margin-top:2rem" class="fade-up">
+      <button class="btn-leave-review" onclick="openReviewPage()">⭐ Share Your Experience</button>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo-area">
+          <div class="ft-logo-fb" id="ftLogoWrap"><img src="image/video/logo.png"></div>
+          <div class="ft-logo-text"><span class="s">Sendiv</span><span class="t">Tech</span></div>
+        </div>
+        <p class="ft-brand" style="color:var(--tm);font-size:.82rem;line-height:1.7;max-width:260px">Premium tech freelancing for brands that refuse to be average. Web, video, and creative — done right.</p>
+        <div style="margin-top:.9rem;font-size:.78rem;color:var(--tm);line-height:1.9">
+          📞 +91 81220 83267<br>✉ info@sendivtech.in
+        </div>
+      </div>
+      <div class="ft-col"><h5>Services</h5><ul><li><a href="#services">Web Design</a></li><li><a href="#services">Video Editing</a></li><li><a href="#services">Poster Design</a></li></ul></div>
+      <div class="ft-col"><h5>Company</h5><ul><li><a href="#about">About</a></li><li><a href="#projects">Portfolio</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div class="ft-col"><h5>Connect</h5><ul>
+        <li><a href="https://wa.me/918122083267" target="_blank">WhatsApp</a></li>
+        <li><a href="https://www.linkedin.com/in/sendiv-tech-03267m" target="_blank">LinkedIn</a></li>
+        <li><a href="mailto:info@sendivtech.in">Email Us</a></li>
+        <li><a href="tel:+918122083267">Call Us</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bottom">
+      <p class="ft-copy">© 2026
+         SendivTech | info@sendivtech.in | +91 81220 83267</p>
+      <div class="ft-socials">
+        <a class="ft-soc wa-soc" href="https://wa.me/918122083267" target="_blank" title="WhatsApp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a class="ft-soc" href="https://www.linkedin.com/in/sendiv-tech-03267m" target="_blank" title="LinkedIn" style="font-size:.7rem;font-weight:700">in</a>
+        <a class="ft-soc" href="mailto:info@sendivtech.in" title="Email">✉</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     REVIEWS FULL PAGE (CUSTOMER-FACING)
+═══════════════════════════════════════════ -->
+<div id="review-page">
+  <div class="rp-nav">
+    <div class="rp-logo">
+      <div class="rp-logo-fb" id="rpLogoWrap"><img src="image/video/logo.png"></div>
+      <div class="rp-logo-text">Sendiv<span>Tech</span></div>
+    </div>
+    <button class="btn-back" onclick="closeReviewPage()">← Back to Website</button>
+  </div>
+  <div class="rp-body">
+    <div class="rp-header-block fade-up">
+      <span class="reviews-eyebrow">Honest Feedback</span>
+      <h1>Client Reviews</h1>
+      <p>Read experiences from our clients and share yours.</p>
+      <div class="rp-rating-row">
+        <div class="rp-big-rating" id="rp-avg">4.9</div>
+        <div style="margin-left:.5rem">
+          <div class="rp-stars-big"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="rp-cnt-txt" id="rp-cnt">Based on client reviews</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALL APPROVED REVIEWS (customer can see these) -->
+    <div style="margin-bottom:2.5rem">
+      <div class="rp-section-title">📋 All Published Reviews</div>
+      <div class="rp-all-grid" id="rpAllReviews">
+        <div class="rp-empty"><div style="font-size:2rem;margin-bottom:.5rem">💬</div><h3>No reviews yet</h3><p>Be the first to share your experience below!</p></div>
+      </div>
+    </div>
+
+    <!-- SUBMIT FORM -->
+    <div class="rp-form-card fade-up">
+      <div class="rp-form-title">✍️ Share Your Experience</div>
+      <div class="rp-form-grid">
+        <div class="rfg"><label>Your Name *</label><input id="rv-name" type="text" placeholder="e.g. Alex Kumar"/></div>
+        <div class="rfg"><label>Your Role / Company</label><input id="rv-role" type="text" placeholder="e.g. CEO, TechCorp"/></div>
+      </div>
+      <div class="rp-form-grid">
+        <div class="rfg">
+          <label>Service Used *</label>
+          <select id="rv-svc">
+            <option value="">Select service...</option>
+            <option>Web Design & Development</option>
+            <option>Video Editing & Motion</option>
+            <option>Graphic & Poster Design</option>
+            <option>Multiple Services</option>
+            <option>Branding</option>
+            <option>Consultation</option>
+          </select>
+        </div>
+        <div class="rfg">
+          <label>Your Rating *</label>
+          <div class="star-picker" id="starPicker">
+            <span class="sp-star" onclick="setRating(1)">★</span>
+            <span class="sp-star" onclick="setRating(2)">★</span>
+            <span class="sp-star" onclick="setRating(3)">★</span>
+            <span class="sp-star" onclick="setRating(4)">★</span>
+            <span class="sp-star" onclick="setRating(5)">★</span>
+          </div>
+        </div>
+      </div>
+      <div class="rfg" style="margin-bottom:1rem">
+        <label>Your Review *</label>
+        <textarea id="rv-text" rows="4" placeholder="Share your experience working with SendivTech..."></textarea>
+      </div>
+      <button class="rev-submit-btn" onclick="submitReview()">Submit Review →</button>
+      <div class="rp-ok" id="rv-ok">✓ Thank you! Your review is pending approval and will appear here soon.</div>
+    </div>
+
+    <!-- WhatsApp CTA at bottom of review page -->
+    <div style="text-align:center;padding:2rem 0 1rem">
+      <p style="color:#475569;font-size:.875rem;margin-bottom:1rem">Have questions before hiring? Chat with us directly.</p>
+      <a href="https://wa.me/918122083267" target="_blank" class="btn-wa-outline" style="display:inline-flex">
+        <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        +91 81220 83267 — Chat Now
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN OVERLAY -->
+<div id="adm">
+  <div class="adm-login" id="adm-login">
+    <div class="adm-lcard">
+      <div class="adm-logo"><div class="adm-logo-fb" id="admLogoWrap"><img src="image/video/logo.png"></div><div class="adm-logo-text">Sendiv<span>Tech</span></div></div>
+      <div class="adm-err" id="adm-err">Incorrect credentials. Please try again.</div>
+      <div class="fg"><label style="color:var(--ts)">Username</label><input id="adm-u" type="text" placeholder="admin only" autocomplete="username"/></div>
+      <div class="fg"><label style="color:var(--ts)">Password</label><input id="adm-p" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn-p" style="width:100%;justify-content:center;margin-top:.25rem" onclick="doLogin()">Sign In →</button>
+      <button class="btn-sm btn-sec" style="width:100%;justify-content:center;margin-top:.55rem;padding:.62rem" onclick="closeAdm()">← Back to Site</button>
+      <p class="adm-hint">Sorry, only admin can access the dashboard.</p>
+    </div>
+  </div>
+  <div id="adm-dash" style="display:none">
+    <div class="adm-nav">
+      <div class="adm-nav-l"><div class="adm-nav-logo-fb" id="admNavLogo"><img src="image/video/logo.png"></div> SendivTech Admin</div>
+      <div class="adm-nav-r">
+        <button class="btn-sm btn-sec" onclick="closeAdm()">← View Site</button>
+        <button class="btn-sm btn-logout" onclick="doLogout()">Sign Out</button>
+      </div>
+    </div>
+    <div class="adm-body">
+      <div class="adm-stats">
+        <div class="adm-stat"><div class="adm-stat-n" id="as-all">0</div><div class="adm-stat-l">Total Projects</div></div>
+        <div class="adm-stat"><div class="adm-stat-n" id="as-demo" style="color:var(--amber)">0</div><div class="adm-stat-l">Demo</div></div>
+        <div class="adm-stat"><div class="adm-stat-n" id="as-done" style="color:var(--green)">0</div><div class="adm-stat-l">Completed</div></div>
+        <div class="adm-stat"><div class="adm-stat-n" id="as-rev-pend" style="color:var(--amber)">0</div><div class="adm-stat-l">Pending Reviews</div></div>
+        <div class="adm-stat"><div class="adm-stat-n" id="as-rev-app" style="color:var(--green)">0</div><div class="adm-stat-l">Published</div></div>
+      </div>
+      <div class="adm-tabs-bar">
+        <button class="adm-tab active" onclick="switchAdmTab('projects',this)">Projects</button>
+        <button class="adm-tab" onclick="switchAdmTab('reviews',this)">Reviews</button>
+        <button class="adm-tab" onclick="switchAdmTab('media',this)">Video</button>
+        <button class="adm-tab" onclick="switchAdmTab('logo',this)">Logo</button>
+      </div>
+      <div id="tab-projects">
+        <div class="adm-sec-h">Projects <button class="btn-sm btn-add-p" onclick="openAddModal()">+ Add Project</button></div>
+        <table class="ptable"><thead><tr><th>Thumb</th><th>Title</th><th>Category</th><th>Type</th><th>Link</th><th>Actions</th></tr></thead><tbody id="adm-tbody"></tbody></table>
+        <div class="adm-empty" id="adm-proj-empty">No projects yet.</div>
+      </div>
+      <div id="tab-reviews" style="display:none">
+        <div class="adm-sec-h">Customer Reviews <span style="font-size:.8rem;font-weight:400;color:var(--tm)">(Approve to make visible to customers)</span></div>
+        <table class="ptable"><thead><tr><th>Name</th><th>Stars</th><th>Service</th><th>Review</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adm-rev-tbody"></tbody></table>
+        <div class="adm-empty" id="adm-rev-empty">No reviews submitted yet.</div>
+      </div>
+      <div id="tab-media" style="display:none">
+        <div class="adm-sec-h">Hero Background Video</div>
+        <div class="video-upload-area" onclick="document.getElementById('heroVidFile').click()">
+          <div style="font-size:2rem">🎬</div>
+          <p>Click to upload hero video (MP4 — max 50MB). Plays muted & looped.</p>
+          <input type="file" id="heroVidFile" accept="video/mp4,video/webm" style="display:none" onchange="uploadHeroVideo(this)"/>
+        </div>
+        <div id="videoStatus" style="font-size:.82rem;color:var(--green);display:none">✓ Video loaded</div>
+      </div>
+      <div id="tab-logo" style="display:none">
+        <div class="adm-sec-h">Brand Logo</div>
+        <div class="video-upload-area" onclick="document.getElementById('logoFile').click()">
+          <div style="font-size:2rem">🖼</div>
+          <p>Upload logo.png — appears in navbar, footer, about section & admin panel</p>
+          <input type="file" id="logoFile" accept="image/*" style="display:none" onchange="uploadLogo(this)"/>
+        </div>
+        <div id="logoPreviewArea" style="display:none;margin-top:1rem;text-align:center">
+          <img id="logoPreviewImg" src="" style="max-height:80px;max-width:200px;border-radius:10px;border:1px solid var(--border);padding:.5rem;background:var(--navy)"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="mbg" id="pModal">
+  <div class="mc">
+    <div class="mc-h"><h3 class="mc-title" id="pModal-title">Add Project</h3><button class="mc-x" onclick="closeModal()">✕</button></div>
+    <div class="mc-b">
+      <input type="hidden" id="m-id"/>
+      <div class="fg"><label>Project Title *</label><input id="m-title" type="text" placeholder="e.g. SaaS Landing Page"/></div>
+      <div class="fg"><label>Category *</label><select id="m-cat"><option value="">Select...</option><option>Web Design</option><option>Video Editing</option><option>Graphic Design</option><option>Branding</option><option>UI/UX</option><option>Other</option></select></div>
+      <div class="fg"><label>Project Type *</label><div class="type-pills"><button type="button" class="tpill" id="pill-demo" onclick="setType('demo')">🟡 Demo</button><button type="button" class="tpill" id="pill-done" onclick="setType('done')">✅ Completed</button></div></div>
+      <div class="fg"><label>Description *</label><textarea id="m-desc" rows="3" placeholder="Brief project overview..."></textarea></div>
+      <div class="fg"><label>Thumbnail Image</label><div class="img-drop" id="img-drop" onclick="document.getElementById('img-file').click()"><div id="img-ph"><div style="font-size:1.4rem">🖼</div><div>Click to upload</div></div></div><input type="file" id="img-file" accept="image/*" style="display:none" onchange="previewImg(this)"/></div>
+      <div class="fg"><label>Live URL (optional)</label><input id="m-link" type="url" placeholder="https://example.com"/></div>
+    </div>
+    <div class="mc-foot"><button class="btn-sm btn-sec" onclick="closeModal()">Cancel</button><button class="btn-sm btn-add-p" onclick="saveProject()">Save</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
