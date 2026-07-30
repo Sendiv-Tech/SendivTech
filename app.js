@@ -42,8 +42,11 @@ function sbHeaders() {
 }
 
 // SELECT
-async function sbSelect(table, filter = '') {
-  const res  = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}&order=created_at.desc`, { headers: sbHeaders() });
+async function sbSelect(table, filter = '', order = 'created_at.desc') {
+  const query = `${filter}${order ? `&order=${order}` : ''}`;
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
+    headers: sbHeaders()
+  });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
@@ -105,7 +108,7 @@ async function load() {
 
   // Logo is stored in Supabase settings table (small text, not a big binary)
   try {
-    const rows = await sbSelect('settings', 'key=eq.logo');
+    const rows = await sbSelect('settings', 'key=eq.logo&limit=1');
     if (rows.length && rows[0].value) {
       logoDataUrl = rows[0].value;
       applyLogo(logoDataUrl);
