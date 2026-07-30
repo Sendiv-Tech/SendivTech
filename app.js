@@ -83,6 +83,46 @@ async function sbDelete(table, id) {
 }
 
 // ════════════════════════════════════════════════════════════
+//  UPDATE FRONTEND
+// ════════════════════════════════════════════════════════════
+
+
+
+async function sendContact() {
+  const fn  = document.getElementById('c-fn').value.trim();
+  const ln  = document.getElementById('c-ln').value.trim();
+  const em  = document.getElementById('c-em').value.trim();
+  const svc = document.getElementById('c-sv').value;
+  const msg = document.getElementById('c-msg').value.trim();
+
+  if (!fn || !em || !msg) {
+    showToast('Fill required fields', 'err');
+    return;
+  }
+
+  try {
+    await sbInsert('contacts', {
+      first_name: fn,
+      last_name: ln,
+      email: em,
+      service: svc,
+      message: msg
+    });
+
+    showToast('Message sent successfully!', 'ok');
+
+    ['c-fn','c-ln','c-em','c-msg'].forEach(id => 
+      document.getElementById(id).value=''
+    );
+    document.getElementById('c-sv').value = '';
+
+  } catch (e) {
+    showToast('Error sending message', 'err');
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
 //  LOAD  (runs on page start)
 // ════════════════════════════════════════════════════════════
 
@@ -118,6 +158,39 @@ async function load() {
   renderAll();
   renderRevPreview();
   renderAllReviews();
+}
+
+async function loadContacts() {
+  try {
+    const data = await sbSelect('contacts');
+    renderContacts(data);
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
+//  UI RENDER
+// ════════════════════════════════════════════════════════════
+
+
+function renderContacts(list) {
+  const el = document.getElementById('contactTable');
+
+  if (!list.length) {
+    el.innerHTML = `<p>No messages yet</p>`;
+    return;
+  }
+
+  el.innerHTML = list.map(c => `
+    <div class="contact-card">
+      <h4>${c.first_name} ${c.last_name || ''}</h4>
+      <p>${c.email}</p>
+      <p><b>${c.service}</b></p>
+      <p>${c.message}</p>
+    </div>
+  `).join('');
 }
 
 // ════════════════════════════════════════════════════════════
