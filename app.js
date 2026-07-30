@@ -84,37 +84,59 @@ async function sbDelete(table, id) {
 // ════════════════════════════════════════════════════════════
 
 async function load() {
+  // 1) Instantly paint from last-known cache (if any) so the page never looks empty/broken
   try {
-    projects = await sbSelect('projects');
-    // If DB is empty on first run, seed demo projects
+    const cached = localStorage.getItem('st-cache');
+    if (cached) {
+      const c = JSON.parse(cached);
+      projects = c.projects || [];
+      reviews  = c.reviews  || [];
+      if (c.logo) { logoDataUrl = c.logo; applyLogo(c.logo); }
+      renderAll();
+      renderRevPreview();
+      renderAllReviews();
+    }
+  } catch(e) { /* ignore bad cache */ }
+
+  // 2) Fetch everything in PARALLEL (was sequential before — that's what caused the lag)
+  const [projectsResult, reviewsResult, settingsResult] = await Promise.allSettled([
+    sbSelect('projects'),
+    sbSelect('reviews'),
+    sbSelect('settings', 'key=eq.logo'),
+  ]);
+
+  if (projectsResult.status === 'fulfilled') {
+    projects = projectsResult.value;
     if (projects.length === 0) {
+      // Empty DB on first run — seed demo projects
       for (const p of DEMO_PROJECTS) await sbInsert('projects', p);
       projects = await sbSelect('projects');
     }
-  } catch(e) {
-    console.error('Projects load error:', e);
-    projects = [...DEMO_PROJECTS];
+  } else {
+    console.error('Projects load error:', projectsResult.reason);
+    if (!projects.length) projects = [...DEMO_PROJECTS];
   }
 
-  try {
-    reviews = await sbSelect('reviews');
-  } catch(e) {
-    console.error('Reviews load error:', e);
-    reviews = [];
+  if (reviewsResult.status === 'fulfilled') {
+    reviews = reviewsResult.value;
+  } else {
+    console.error('Reviews load error:', reviewsResult.reason);
   }
 
-  // Logo is stored in Supabase settings table (small text, not a big binary)
-  try {
-    const rows = await sbSelect('settings', 'key=eq.logo');
-    if (rows.length && rows[0].value) {
-      logoDataUrl = rows[0].value;
-      applyLogo(logoDataUrl);
-    }
-  } catch(e) { /* no logo yet */ }
+  if (settingsResult.status === 'fulfilled' && settingsResult.value.length && settingsResult.value[0].value) {
+    logoDataUrl = settingsResult.value[0].value;
+    applyLogo(logoDataUrl);
+  }
 
+  // 3) Re-render with fresh data
   renderAll();
   renderRevPreview();
   renderAllReviews();
+
+  // 4) Update cache for next visit
+  try {
+    localStorage.setItem('st-cache', JSON.stringify({ projects, reviews, logo: logoDataUrl }));
+  } catch(e) { /* storage full or blocked — safe to ignore */ }
 }
 
 // ════════════════════════════════════════════════════════════
@@ -541,7 +563,7 @@ function closeReviewPage() { document.getElementById('review-page').style.displa
 //  CONTACT
 // ════════════════════════════════════════════════════════════
 
-const WEB3FORMS_KEY = 'PASTE_YOUR_ACCESS_KEY_HERE'; // get free key at https://web3forms.com
+const WEB3FORMS_KEY = '0596d264-67f8-4426-a5f4-483df6c9734d'; // get free key at https://web3forms.com
 
 async function sendContact() {
   const fn  = document.getElementById('c-fn').value.trim();
