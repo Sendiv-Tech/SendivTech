@@ -42,11 +42,8 @@ function sbHeaders() {
 }
 
 // SELECT
-async function sbSelect(table, filter = '', order = 'created_at.desc') {
-  const query = `${filter}${order ? `&order=${order}` : ''}`;
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
-    headers: sbHeaders()
-  });
+async function sbSelect(table, filter = '') {
+  const res  = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${filter}&order=created_at.desc`, { headers: sbHeaders() });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
@@ -83,11 +80,6 @@ async function sbDelete(table, id) {
 }
 
 // ════════════════════════════════════════════════════════════
-//  UPDATE FRONTEND
-// ════════════════════════════════════════════════════════════
-
-
-// ════════════════════════════════════════════════════════════
 //  LOAD  (runs on page start)
 // ════════════════════════════════════════════════════════════
 
@@ -113,7 +105,7 @@ async function load() {
 
   // Logo is stored in Supabase settings table (small text, not a big binary)
   try {
-    const rows = await sbSelect('settings', 'key=eq.logo&limit=1');
+    const rows = await sbSelect('settings', 'key=eq.logo');
     if (rows.length && rows[0].value) {
       logoDataUrl = rows[0].value;
       applyLogo(logoDataUrl);
@@ -123,39 +115,6 @@ async function load() {
   renderAll();
   renderRevPreview();
   renderAllReviews();
-}
-
-async function loadContacts() {
-  try {
-    const data = await sbSelect('contacts');
-    renderContacts(data);
-  } catch(e) {
-    console.error(e);
-  }
-}
-
-
-// ════════════════════════════════════════════════════════════
-//  UI RENDER
-// ════════════════════════════════════════════════════════════
-
-
-function renderContacts(list) {
-  const el = document.getElementById('contactTable');
-
-  if (!list.length) {
-    el.innerHTML = `<p>No messages yet</p>`;
-    return;
-  }
-
-  el.innerHTML = list.map(c => `
-    <div class="contact-card">
-      <h4>${c.first_name} ${c.last_name || ''}</h4>
-      <p>${c.email}</p>
-      <p><b>${c.service}</b></p>
-      <p>${c.message}</p>
-    </div>
-  `).join('');
 }
 
 // ════════════════════════════════════════════════════════════
@@ -212,6 +171,61 @@ function uploadHeroVideo(input) {
   vid.load(); vid.play(); vid.muted = true;
   document.getElementById('videoStatus').style.display = 'block';
   showToast('Hero video loaded!', 'ok');
+}
+
+
+// ════════════════════════════════════════════════════════════
+//  SEND CONTACT
+// ════════════════════════════════════════════════════════════
+
+async function sendContact() {
+  const fn  = document.getElementById('c-fn').value.trim();
+  const ln  = document.getElementById('c-ln').value.trim();
+  const em  = document.getElementById('c-em').value.trim();
+  const svc = document.getElementById('c-sv').value;
+  const msg = document.getElementById('c-msg').value.trim();
+
+  if (!fn || !em || !msg) {
+    showToast('Fill required fields', 'err');
+    return;
+  }
+
+
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    name: fn,
+    email: em,
+    message: msg
+  }).then(() => {
+    showToast('Email sent!', 'ok');
+  }).catch(() => {
+    showToast('Failed to send email', 'err');
+  });
+}
+
+
+  const data = {
+    first_name: fn,
+    last_name: ln,
+    email: em,
+    service: svc,
+    message: msg
+  };
+
+  try {
+    await sbInsert('contacts', data);
+
+    document.getElementById('c-ok').classList.add('show');
+    showToast('Message sent successfully!', 'ok');
+
+    ['c-fn','c-ln','c-em','c-msg'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('c-sv').value = '';
+
+    setTimeout(() => document.getElementById('c-ok').classList.remove('show'), 5000);
+
+  } catch (e) {
+    console.error(e);
+    showToast('Failed to send message', 'err');
+  }
 }
 
 // ════════════════════════════════════════════════════════════
@@ -623,33 +637,19 @@ window.addEventListener('scroll', () => {
 
 // ── Start ─────────────────────────────────────────────────
 load();
+//── MAIL API ─────────────────────────────────────────────────
+emailjs.init('re_5Wzpxt74_Nju1ZLoxSe3Qt32rZem76Y4u');
 
-// ── EDGE FUNCTION ─────────────────────────────────────────────────
 
-import { serve } from "https://deno.land/std/http/server.ts";
+import { Resend } from 'resend';
 
-serve(async (req) => {
-  const { name, email, message, service } = await req.json();
+const resend = new Resend('re_5Wzpxt74_Nju1ZLoxSe3Qt32rZem76Y4u');
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Authorization": "Bearer YOUR_RESEND_API_KEY",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      from: "SendivTech <onboarding@resend.dev>",
-      to: ["info@sendivtech.in"],   // YOUR EMAIL
-      subject: "🚀 New Client Message",
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Service:</strong> ${service}</p>
-        <p><strong>Message:</strong><br>${message}</p>
-      `
-    })
-  });
-
-  return new Response(await res.text(), { status: 200 });
+resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: 'info@sendivtech.in',
+  subject: 'Hello World',
+  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
 });
+
+here this send message dose not work the problem is mail can't receive to me but success fully sent message is shown but not receive 
