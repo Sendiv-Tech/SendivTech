@@ -173,61 +173,6 @@ function uploadHeroVideo(input) {
   showToast('Hero video loaded!', 'ok');
 }
 
-
-// ════════════════════════════════════════════════════════════
-//  SEND CONTACT
-// ════════════════════════════════════════════════════════════
-
-async function sendContact() {
-  const fn  = document.getElementById('c-fn').value.trim();
-  const ln  = document.getElementById('c-ln').value.trim();
-  const em  = document.getElementById('c-em').value.trim();
-  const svc = document.getElementById('c-sv').value;
-  const msg = document.getElementById('c-msg').value.trim();
-
-  if (!fn || !em || !msg) {
-    showToast('Fill required fields', 'err');
-    return;
-  }
-
-
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-    name: fn,
-    email: em,
-    message: msg
-  }).then(() => {
-    showToast('Email sent!', 'ok');
-  }).catch(() => {
-    showToast('Failed to send email', 'err');
-  });
-}
-
-
-  const data = {
-    first_name: fn,
-    last_name: ln,
-    email: em,
-    service: svc,
-    message: msg
-  };
-
-  try {
-    await sbInsert('contacts', data);
-
-    document.getElementById('c-ok').classList.add('show');
-    showToast('Message sent successfully!', 'ok');
-
-    ['c-fn','c-ln','c-em','c-msg'].forEach(id => document.getElementById(id).value='');
-    document.getElementById('c-sv').value = '';
-
-    setTimeout(() => document.getElementById('c-ok').classList.remove('show'), 5000);
-
-  } catch (e) {
-    console.error(e);
-    showToast('Failed to send message', 'err');
-  }
-}
-
 // ════════════════════════════════════════════════════════════
 //  RENDER HELPERS
 // ════════════════════════════════════════════════════════════
@@ -596,15 +541,47 @@ function closeReviewPage() { document.getElementById('review-page').style.displa
 //  CONTACT
 // ════════════════════════════════════════════════════════════
 
-function sendContact() {
+const WEB3FORMS_KEY = 'PASTE_YOUR_ACCESS_KEY_HERE'; // get free key at https://web3forms.com
+
+async function sendContact() {
   const fn  = document.getElementById('c-fn').value.trim();
+  const ln  = document.getElementById('c-ln').value.trim();
   const em  = document.getElementById('c-em').value.trim();
+  const svc = document.getElementById('c-sv').value;
   const msg = document.getElementById('c-msg').value.trim();
   if (!fn||!em||!msg) { showToast('Fill required fields', 'err'); return; }
+
+  const btn = document.getElementById('c-send-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: `New project inquiry from ${fn} ${ln}`.trim(),
+        name: `${fn} ${ln}`.trim(),
+        email: em,
+        service: svc || 'Not specified',
+        message: msg,
+      }),
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Send failed');
+  } catch (e) {
+    console.error('Contact send error:', e);
+    showToast('Message failed to send — please WhatsApp us instead', 'err');
+    if (btn) { btn.disabled = false; btn.textContent = 'Send Message →'; }
+    return;
+  }
+
   document.getElementById('c-ok').classList.add('show');
   ['c-fn','c-ln','c-em','c-msg'].forEach(id => document.getElementById(id).value='');
   document.getElementById('c-sv').value = '';
   setTimeout(() => document.getElementById('c-ok').classList.remove('show'), 5000);
+  showToast('Message sent!', 'ok');
+  if (btn) { btn.disabled = false; btn.textContent = 'Send Message →'; }
 }
 
 // ════════════════════════════════════════════════════════════
@@ -637,19 +614,3 @@ window.addEventListener('scroll', () => {
 
 // ── Start ─────────────────────────────────────────────────
 load();
-//── MAIL API ─────────────────────────────────────────────────
-emailjs.init('re_5Wzpxt74_Nju1ZLoxSe3Qt32rZem76Y4u');
-
-
-import { Resend } from 'resend';
-
-const resend = new Resend('re_5Wzpxt74_Nju1ZLoxSe3Qt32rZem76Y4u');
-
-resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'info@sendivtech.in',
-  subject: 'Hello World',
-  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-});
-
-here this send message dose not work the problem is mail can't receive to me but success fully sent message is shown but not receive 
