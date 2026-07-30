@@ -86,62 +86,6 @@ async function sbDelete(table, id) {
 //  UPDATE FRONTEND
 // ════════════════════════════════════════════════════════════
 
-async function sendContact() {
-  const first_name = document.getElementById("c-fn").value;
-  const last_name = document.getElementById("c-ln").value;
-  const email = document.getElementById("c-em").value;
-  const service = document.getElementById("c-sv").value;
-  const message = document.getElementById("c-msg").value;
-
-  if (!first_name || !email || !message) {
-    alert("Please fill all required fields");
-    return;
-  }
-
-  try {
-
-    // ✅ 1. Save to database
-    await fetch("https://sewrfrtcfefkaohqgelt.supabase.co/rest/v1/contacts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": "YOUR_SUPABASE_ANON_KEY",
-        "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY"
-      },
-      body: JSON.stringify({
-        first_name,
-        last_name,
-        email,
-        service,
-        message
-      })
-    });
-
-    // ✅ 2. Send email
-    await fetch(
-      "https://sewrfrtcfefkaohqgelt.supabase.co/functions/v1/send-email",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: first_name + " " + last_name,
-          email,
-          service,
-          message
-        })
-      }
-    );
-
-    document.getElementById("c-ok").style.display = "block";
-
-  } catch (err) {
-    alert("Error sending message");
-  }
-}
-
-
 
 // ════════════════════════════════════════════════════════════
 //  LOAD  (runs on page start)
