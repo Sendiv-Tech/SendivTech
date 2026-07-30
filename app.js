@@ -86,40 +86,61 @@ async function sbDelete(table, id) {
 //  UPDATE FRONTEND
 // ════════════════════════════════════════════════════════════
 
-
-
 async function sendContact() {
-  const fn  = document.getElementById('c-fn').value.trim();
-  const ln  = document.getElementById('c-ln').value.trim();
-  const em  = document.getElementById('c-em').value.trim();
-  const svc = document.getElementById('c-sv').value;
-  const msg = document.getElementById('c-msg').value.trim();
+  const first_name = document.getElementById("c-fn").value;
+  const last_name = document.getElementById("c-ln").value;
+  const email = document.getElementById("c-em").value;
+  const service = document.getElementById("c-sv").value;
+  const message = document.getElementById("c-msg").value;
 
-  if (!fn || !em || !msg) {
-    showToast('Fill required fields', 'err');
+  if (!first_name || !email || !message) {
+    alert("Please fill all required fields");
     return;
   }
 
   try {
-    await sbInsert('contacts', {
-      first_name: fn,
-      last_name: ln,
-      email: em,
-      service: svc,
-      message: msg
+
+    // ✅ 1. Save to database
+    await fetch("https://sewrfrtcfefkaohqgelt.supabase.co/rest/v1/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": "YOUR_SUPABASE_ANON_KEY",
+        "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY"
+      },
+      body: JSON.stringify({
+        first_name,
+        last_name,
+        email,
+        service,
+        message
+      })
     });
 
-    showToast('Message sent successfully!', 'ok');
-
-    ['c-fn','c-ln','c-em','c-msg'].forEach(id => 
-      document.getElementById(id).value=''
+    // ✅ 2. Send email
+    await fetch(
+      "https://sewrfrtcfefkaohqgelt.supabase.co/functions/v1/send-email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: first_name + " " + last_name,
+          email,
+          service,
+          message
+        })
+      }
     );
-    document.getElementById('c-sv').value = '';
 
-  } catch (e) {
-    showToast('Error sending message', 'err');
+    document.getElementById("c-ok").style.display = "block";
+
+  } catch (err) {
+    alert("Error sending message");
   }
 }
+
 
 
 // ════════════════════════════════════════════════════════════
@@ -658,3 +679,33 @@ window.addEventListener('scroll', () => {
 
 // ── Start ─────────────────────────────────────────────────
 load();
+
+// ── EDGE FUNCTION ─────────────────────────────────────────────────
+
+import { serve } from "https://deno.land/std/http/server.ts";
+
+serve(async (req) => {
+  const { name, email, message, service } = await req.json();
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer YOUR_RESEND_API_KEY",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: "SendivTech <onboarding@resend.dev>",
+      to: ["info@sendivtech.in"],   // YOUR EMAIL
+      subject: "🚀 New Client Message",
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        <p><strong>Message:</strong><br>${message}</p>
+      `
+    })
+  });
+
+  return new Response(await res.text(), { status: 200 });
+});
